@@ -295,8 +295,7 @@ impl<C> ProxyConnector<C> {
             let certs = rustls_native_certs::load_native_certs()?
                 .into_iter()
                 .map(|der| {
-                    let anchor = webpki::TrustAnchor::try_from_cert_der(&der.0)
-                        .map_err(io_err)?;
+                    let anchor = webpki::TrustAnchor::try_from_cert_der(&der.0).map_err(io_err)?;
 
                     Ok(
                         tokio_rustls::rustls::OwnedTrustAnchor::from_subject_spki_name_constraints(
